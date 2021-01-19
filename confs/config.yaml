@@ -1,0 +1,5 @@
+train:
+ host: XXX
+ table: XXX
+ period: 24*60*60
+

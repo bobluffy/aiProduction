@@ -1,0 +1,48 @@
+release time:2020-01-14
+
+
+安装指南
+
+1.目录说明
+
+confs配置文件夹
+logs日志文件夹
+models模型文件夹
+ai_serverV0.1.tar部署文件
+
+
+2.安装说明
+
+2.1 解压运行包目录
+tar zxvf release_XXX.tgz
+
+2.2 准备运行环境
+cd release_XXX&&mkdir logs
+
+2.3 加载服务镜像
+docker load -i ai_serverV0.1.tar
+
+2.4 给服务镜像打tag
+docker images
+docker tag IMAGEID ai_server:v0.1
+docker images
+
+3.创建运行服务docker容器
+docker run -v 当前目录的绝对目录/logs:/data/ai_server/logs -v 当前目录的绝对目录/confs:/data/ai_server/confs -v 当前目录的绝对目录/models:/data/ai_server/models -p 你的ip:6661:6661 -dti ai_server:v0.1
+例如：　
+docker run -v /root/workplace/docker_env/ai_server/logs:/data/ai_server/logs -v /root/workplace/docker_env/ai_server/confs:/data/ai_server/confs -v /root/workplace/docker_env/ai_server/models:/data/ai_server/models -p XXXX:6661:6661 -dti ai_server:v0.1
+
+4．检查是否运行成功
+docker ps　
+
+出现下面container,并且状态是Up表示运行成功
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+ai_server            v0.1                2f6461712e31        About an hour ago   1.9GB
+
+
+5.卸载步骤
+docker ps
+docker stop CONTAINERID
+docker rm -f CONTAINERID
+docker imamges
+docker rmi -f IMAGHEID
